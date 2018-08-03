@@ -17,11 +17,7 @@ class Irq_Balancing:
             #print(newCountedIndexArr)
 
         if i == 0:
-            if sumCounted < (sumTotal - sumCounted):
-                return abs((sumTotal - sumCounted) -
-                       sumCounted), newCountedIndexArr
-            else:
-                return abs((sumTotal - sumCounted) -
+            return abs((sumTotal - sumCounted) -
                        sumCounted), countedIndexArr
 
         min_include_current, ret_include_countedIndexArr = self.findMinDiff(arr, i - 1, sumCounted
@@ -54,12 +50,12 @@ class Irq_Balancing:
         print ("sumTotal = " + str(sumTotal))
         # Compute result using recursive function
         minDiff, res_arr = self.findMinDiff(arr, n-1, 0, sumTotal, [])
-        print (res_arr)
+        print ("findMin:" + str(res_arr))
         return minDiff, res_arr
 
     # Driver function to test findMin/findMinDiff functions
     def main(self):
-        arr = [8, 1, 3, 4, 5, 2]
+        arr = [8, 1, 7, 3, 4, 2, 250]
         #arr = [ 5, 1, 3, 4, 2, 2, 1]
         res_countedIndexArr = [0 for x in range(len(arr))]
         #res_countedIndexArr = []
