@@ -42,12 +42,14 @@ class Irq_Balancing_DP:
         # in bottom up manner
         i = 1
         j = 1
+        print ("n = " + str(n))
         # for i in range(1, n+1):
         while i <= n :
             # for j in range(1, sum+1):
             while j <= sum :
                 # If i'th element is excluded
                 dp[i][j] = dp[i - 1][j]
+                # print("After " + str(i) + "'th element excluded :" + str(dp))
 
                 # If i'th element is included
                 if arr[i - 1] <= j:
@@ -55,8 +57,10 @@ class Irq_Balancing_DP:
                     # if (dp[i - 1][j - arr[i - 1]] == True) or (dp[i][j] == True):
                     #     dp[i][j] = True
 
-                j += 1
-            i += 1
+                print("inner loop sum, j = " + str(j))
+                j = j + 1
+            print("outer loop n, i = " + str(i))
+            i = i + 1
 
         print ("After Filling the partition table :" + str(dp))
 
