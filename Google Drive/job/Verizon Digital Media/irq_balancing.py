@@ -54,8 +54,9 @@ class Irq_Balancing:
         return minDiff, res_arr
 
     # Driver function to test findMin/findMinDiff functions
-    def main(self):
-        arr = [8, 1, 7, 3, 4, 2, 250]
+    def main(self, irq_list):
+        arr = irq_list
+        #arr = [8, 1, 7, 3, 4, 2, 250]
         #arr = [ 5, 1, 3, 4, 2, 2, 1]
         res_countedIndexArr = [0 for x in range(len(arr))]
         #res_countedIndexArr = []
@@ -78,17 +79,21 @@ class Irq_Balancing:
         #     if res_countedIndexArr[index] >= 1:
         #         print(str(index))
 
-    def read_irq_file(self, filename):
+    def get_irq_list_from_file(self, filename):
+        irq_list = []
         for line in open(filename):
             listWords = line.split()
             #print (listWords[0] + " " + listWords[1] + " " + listWords[2])
             #irq_arr =
+            irq_list.append(int(listWords[1]) + int(listWords[2]))
             print (listWords[0] + " " + str(int(listWords[1]) + int(listWords[2])))
 
+        print (str(irq_list))
+        return irq_list
 
 a = Irq_Balancing()
-#a.read_irq_file("C:\\Users\Leo_Zinger\Downloads\Irq_Balancing\irq_interrupts.txt")
-a.main()
+irq_list = a.get_irq_list_from_file("C:\\Users\Leo_Zinger\Downloads\Irq_Balancing\irq_interrupts.txt")
+a.main(irq_list)
 
 
 
