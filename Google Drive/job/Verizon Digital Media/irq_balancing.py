@@ -28,13 +28,13 @@ class Irq_Balancing:
             # add index in the result array
             #print (i)
             countedIndexArr = newCountedIndexArr
-            print ("returned included indexArray:" + str(ret_include_countedIndexArr))
+            #print ("returned included indexArray:" + str(ret_include_countedIndexArr))
             return min_include_current, ret_include_countedIndexArr
         else:
-            print ("returned NOT-included indexArray:" + str(ret_not_include_countedIndexArr))
+            #print ("returned NOT-included indexArray:" + str(ret_not_include_countedIndexArr))
             return min_not_include_current, ret_not_include_countedIndexArr
 
-    # Returns minimum possible difference between
+    # Returns minimum difference between
     # sums of two array arrays
     def findMin(self, arr, n):
         """
@@ -53,38 +53,25 @@ class Irq_Balancing:
         print ("findMin:" + str(res_arr))
         return minDiff, res_arr
 
-    # Driver function to test findMin/findMinDiff functions
+    # main function to test findMin/findMinDiff functions
     def main(self, irq_list):
         arr = irq_list
         #arr = [8, 1, 7, 3, 4, 2, 250]
         #arr = [ 5, 1, 3, 4, 2, 2, 1]
         res_countedIndexArr = [0 for x in range(len(arr))]
-        #res_countedIndexArr = []
-        #res_countedIndexArr = [len(arr)+1];
         print ("arr length = " + str(len(arr)))
         print ("res_countedIndexArr size = " + str(len(res_countedIndexArr)))
         n = len(arr)
         (minDiff, res_countedIndexArr) = self.findMin(arr, n)
-        print("The minimum difference"+
-                " between two subarrays is " +
-                str(minDiff))
-
-        #print("The result array for one of the subarrays : " +
-        #  str(res_countedIndexArr))
+        print("The minimum difference between two subarrays is " +
+            str(minDiff))
 
         print("The result array indices : " + str(res_countedIndexArr))
-
-        # for index in range(len(res_countedIndexArr)):
-        # #for i in res_countedIndexArr:
-        #     if res_countedIndexArr[index] >= 1:
-        #         print(str(index))
 
     def get_irq_list_from_file(self, filename):
         irq_list = []
         for line in open(filename):
             listWords = line.split()
-            #print (listWords[0] + " " + listWords[1] + " " + listWords[2])
-            #irq_arr =
             irq_list.append(int(listWords[1]) + int(listWords[2]))
             print (listWords[0] + " " + str(int(listWords[1]) + int(listWords[2])))
 
