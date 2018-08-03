@@ -1,19 +1,34 @@
+import csv
 class Irq_Balancing:
-    def findMinDiff(self, arr, i, sumCounted, sumTotal):
+    def findMinDiff(self, arr, i, sumCounted, sumTotal, countedIndexArr):
         """
         :type arr: List[int]
         :type i: int
         :type sumCounted: int
         :type sumTotal: int
-        :rtype: int
+        :type countedIndexArr: List[int]
         """
+        if not countedIndexArr:
+            print("List countedIndexArr is empty")
+            newCountedIndexArr = [i]
+        else:
+            newCountedIndexArr = countedIndexArr.copy()
+            newCountedIndexArr.append(i)
+            print(newCountedIndexArr)
+
         if i == 0:
             return abs((sumTotal - sumCounted) -
                        sumCounted);
-        return min(self.findMinDiff(arr, i - 1, sumCounted
-                                   + arr[i - 1], sumTotal),
-                   self.findMinDiff(arr, i - 1,
-                                    sumCounted, sumTotal))
+        min_include_current = self.findMinDiff(arr, i - 1, sumCounted
+                                               + arr[i - 1], sumTotal, newCountedIndexArr)
+        min_not_include_current = self.findMinDiff(arr, i - 1,
+                                                   sumCounted, sumTotal, countedIndexArr)
+        # if min_include_current < min_not_include_current :
+        #     # add index in the result array
+        #     #print (i)
+        #     countedIndexArr = newCountedIndexArr
+
+        return min(min_include_current, min_not_include_current), newCountedIndexArr
 
     # Returns minimum possible difference between
     # sums of two array arrays
@@ -25,21 +40,53 @@ class Irq_Balancing:
         """
     # Compute total sum of elements
         sumTotal = 0
+        res_arr = []
         for i in range (n):
             sumTotal += arr[i]
         print ("sumTotal = " + str(sumTotal))
         # Compute result using recursive function
-        return self.findMinDiff(arr, n, 0, sumTotal)
+        minDiff, res_arr = self.findMinDiff(arr, n, 0, sumTotal, [])
+        print (res_arr)
+        return minDiff
 
     # Driver function to test findMin/findMinDiff functions
     def main(self):
-        arr = [3, 1, 4, 2, 2, 1]
+        arr = [8, 1, 3, 250, 4, 5, 2]
+        #arr = [ 5, 1, 3, 4, 2, 2, 1]
+        #res_countedIndexArr = [0 for x in range(len(arr))]
+        res_countedIndexArr = []
+        #res_countedIndexArr = [len(arr)+1];
+        print ("arr length = " + str(len(arr)))
+        print ("res_countedIndexArr size = " + str(len(res_countedIndexArr)))
         n = len(arr)
+        minDiff, res_countedIndexArr = self.findMin(arr, n)
         print("The minimum difference"+
                 " between two subarrays is " +
-                str(self.findMin(arr, n)))
+                str(minDiff))
+
+        #print("The result array for one of the subarrays : " +
+        #  str(res_countedIndexArr))
+
+        print("The result array indices : ")
+        #l = [1, 2, 3, 7]
+        print (",".join([str(x) for x in res_countedIndexArr]))
+        #print("The result array indices is = " + res_countedIndexArr)
+
+        # for index in range(len(res_countedIndexArr)):
+        # #for i in res_countedIndexArr:
+        #     if res_countedIndexArr[index] >= 1:
+        #         print(str(index))
+
+    def read_irq_file(self, filename):
+        for line in open(filename):
+            listWords = line.split()
+            #print (listWords[0] + " " + listWords[1] + " " + listWords[2])
+            #irq_arr =
+            print (listWords[0] + " " + str(int(listWords[1]) + int(listWords[2])))
+
 
 a = Irq_Balancing()
+#a.read_irq_file("C:\\Users\Leo_Zinger\Downloads\Irq_Balancing\irq_interrupts.txt")
 a.main()
 
 
