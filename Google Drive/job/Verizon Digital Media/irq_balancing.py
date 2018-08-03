@@ -9,26 +9,34 @@ class Irq_Balancing:
         :type countedIndexArr: List[int]
         """
         if not countedIndexArr:
-            print("List countedIndexArr is empty")
+            #print("List countedIndexArr is empty")
             newCountedIndexArr = [i]
         else:
             newCountedIndexArr = countedIndexArr.copy()
             newCountedIndexArr.append(i)
-            print(newCountedIndexArr)
+            #print(newCountedIndexArr)
 
         if i == 0:
-            return abs((sumTotal - sumCounted) -
-                       sumCounted);
-        min_include_current = self.findMinDiff(arr, i - 1, sumCounted
-                                               + arr[i - 1], sumTotal, newCountedIndexArr)
-        min_not_include_current = self.findMinDiff(arr, i - 1,
-                                                   sumCounted, sumTotal, countedIndexArr)
-        # if min_include_current < min_not_include_current :
-        #     # add index in the result array
-        #     #print (i)
-        #     countedIndexArr = newCountedIndexArr
+            if sumCounted < (sumTotal - sumCounted):
+                return abs((sumTotal - sumCounted) -
+                       sumCounted), newCountedIndexArr
+            else:
+                return abs((sumTotal - sumCounted) -
+                       sumCounted), countedIndexArr
 
-        return min(min_include_current, min_not_include_current), newCountedIndexArr
+        min_include_current, ret_include_countedIndexArr = self.findMinDiff(arr, i - 1, sumCounted
+                                               + arr[i - 1], sumTotal, newCountedIndexArr)
+        min_not_include_current, ret_not_include_countedIndexArr = self.findMinDiff(arr, i - 1,
+                                                   sumCounted, sumTotal, countedIndexArr)
+        if min_include_current < min_not_include_current :
+            # add index in the result array
+            #print (i)
+            countedIndexArr = newCountedIndexArr
+            print ("returned included indexArray:" + str(ret_include_countedIndexArr))
+            return min_include_current, ret_include_countedIndexArr
+        else:
+            print ("returned NOT-included indexArray:" + str(ret_not_include_countedIndexArr))
+            return min_not_include_current, ret_not_include_countedIndexArr
 
     # Returns minimum possible difference between
     # sums of two array arrays
@@ -45,21 +53,21 @@ class Irq_Balancing:
             sumTotal += arr[i]
         print ("sumTotal = " + str(sumTotal))
         # Compute result using recursive function
-        minDiff, res_arr = self.findMinDiff(arr, n, 0, sumTotal, [])
+        minDiff, res_arr = self.findMinDiff(arr, n-1, 0, sumTotal, [])
         print (res_arr)
-        return minDiff
+        return minDiff, res_arr
 
     # Driver function to test findMin/findMinDiff functions
     def main(self):
-        arr = [8, 1, 3, 250, 4, 5, 2]
+        arr = [8, 1, 3, 4, 5, 2]
         #arr = [ 5, 1, 3, 4, 2, 2, 1]
-        #res_countedIndexArr = [0 for x in range(len(arr))]
-        res_countedIndexArr = []
+        res_countedIndexArr = [0 for x in range(len(arr))]
+        #res_countedIndexArr = []
         #res_countedIndexArr = [len(arr)+1];
         print ("arr length = " + str(len(arr)))
         print ("res_countedIndexArr size = " + str(len(res_countedIndexArr)))
         n = len(arr)
-        minDiff, res_countedIndexArr = self.findMin(arr, n)
+        (minDiff, res_countedIndexArr) = self.findMin(arr, n)
         print("The minimum difference"+
                 " between two subarrays is " +
                 str(minDiff))
@@ -67,10 +75,7 @@ class Irq_Balancing:
         #print("The result array for one of the subarrays : " +
         #  str(res_countedIndexArr))
 
-        print("The result array indices : ")
-        #l = [1, 2, 3, 7]
-        print (",".join([str(x) for x in res_countedIndexArr]))
-        #print("The result array indices is = " + res_countedIndexArr)
+        print("The result array indices : " + str(res_countedIndexArr))
 
         # for index in range(len(res_countedIndexArr)):
         # #for i in res_countedIndexArr:
