@@ -40,13 +40,11 @@ class Irq_Balancing_DP:
 
         # Fill the partition table 
         # in bottom up manner
-        i = 1
-        j = 1
+        # i = 1
+        # j = 1
         print ("n = " + str(n))
-        # for i in range(1, n+1):
-        while i <= n :
-            # for j in range(1, sum+1):
-            while j <= sum :
+        for i in range(1, n+1):
+            for j in range(1, sum+1):
                 # If i'th element is excluded
                 dp[i][j] = dp[i - 1][j]
                 # print("After " + str(i) + "'th element excluded :" + str(dp))
@@ -58,9 +56,7 @@ class Irq_Balancing_DP:
                     #     dp[i][j] = True
 
                 print("inner loop sum, j = " + str(j))
-                j = j + 1
             print("outer loop n, i = " + str(i))
-            i = i + 1
 
         print ("After Filling the partition table :" + str(dp))
 
@@ -83,7 +79,7 @@ class Irq_Balancing_DP:
 
     # main function
     def main(self):
-        arr = [3, 1, 4, 2, 2, 1]
+        arr = [3, 1, 4, 2, 2, 1, 250]
         n = len(arr)
         print("The minimum difference between 2 sets is "
                 + str(self.findMin(arr, n)))
