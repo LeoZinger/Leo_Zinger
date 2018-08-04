@@ -15,9 +15,7 @@ class Irq_Balancing_DP:
         # results of subproblems
         #dp = [n + 1][sum + 1]
         dp = [[False for x in range(sum+1)] for y in range(n+1)]
-        print ("After initing 2D DP array ALL False:" + str(dp))
-        # dp = (n + 1) * [(sum + 1) * [False]]
-        # print (str(dp))
+        # print ("After initing 2D DP array ALL False:" + str(dp))
 
         # Initialize first column as true. 
         # 0 sum is possible  with all elements.
@@ -27,7 +25,7 @@ class Irq_Balancing_DP:
         while i <= n :
             dp[i][0] = True
             i += 1
-        print ("After setting 1st column to True : " + str(dp))
+        # print ("After setting 1st column to True : " + str(dp))
 
         # Initialize top row, except dp[0][0], 
         # as false. With 0 elements, no other 
@@ -36,12 +34,10 @@ class Irq_Balancing_DP:
         while i <= sum :
             dp[0][i] = False
             i += 1
-        print ("After setting top row to False :   " + str(dp))
+        # print ("After setting top row to False :   " + str(dp))
 
         # Fill the partition table 
         # in bottom up manner
-        # i = 1
-        # j = 1
         print ("n = " + str(n))
         for i in range(1, n+1):
             for j in range(1, sum+1):
@@ -55,14 +51,14 @@ class Irq_Balancing_DP:
                     # if (dp[i - 1][j - arr[i - 1]] == True) or (dp[i][j] == True):
                     #     dp[i][j] = True
 
-                print("inner loop sum, j = " + str(j))
-            print("outer loop n, i = " + str(i))
+            #     print("inner loop sum, j = " + str(j))
+            # print("outer loop n, i = " + str(i))
 
-        print ("After Filling the partition table :" + str(dp))
+        # print ("After Filling the partition table :" + str(dp))
 
         # Initialize difference of two sums.
         #diff = Integer.MAX_VALUE
-        diff = 1000000000
+        #diff = 1000000000
 
         # Find the largest j such that dp[n][j]
         # is True where j loops from sum/2 to 0
